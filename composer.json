@@ -1,0 +1,32 @@
+{
+    "name": "igaponov/omnipay-wirecard",
+    "type": "library",
+    "description": "Wirecard gateway for Omnipay payment processing library",
+    "keywords": [
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment",
+        "wirecard",
+        "purchase"
+    ],
+    "homepage": "https://github.com/igaponov/omnipay-wirecard",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gaponov Igor",
+            "email": "jiminy96@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Omnipay\\Wirecard\\" : "src/" }
+    },
+    "require": {
+        "omnipay/common": "~2.0",
+        "igaponov/wirecard-php-api": "dev-master"
+    },
+    "require-dev": {
+        "omnipay/tests": "~2.0"
+    }
+}

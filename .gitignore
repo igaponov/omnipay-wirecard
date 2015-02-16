@@ -1,0 +1,9 @@
+nbproject
+.idea
+.buildpath
+.project
+.settings
+
+vendor/
+composer.lock
+phpunit.xml
