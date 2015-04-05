@@ -118,6 +118,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('transactionReference', $value);
     }
 
+    public function getCountryCode()
+    {
+        return $this->getParameter('countryCode');
+    }
+
+    public function setCountryCode($value)
+    {
+        return $this->setParameter('countryCode', $value);
+    }
+
     /**
      * Send the request with specified data
      *
