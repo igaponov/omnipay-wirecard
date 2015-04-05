@@ -2,14 +2,32 @@
 
 namespace Omnipay\Wirecard\Message;
 
+use Guzzle\Http\ClientInterface;
 use JMS\Serializer\SerializerInterface;
 use Omnipay\Common\Message\ResponseInterface;
+use Omnipay\Wirecard\Message\TransactionBuilder\TransactionBuilderInterface;
+use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Wirecard\Element\Job;
 use Wirecard\Element\Request;
+use Wirecard\Element\Transaction;
 use Wirecard\Element\WireCard;
 
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
+    /**
+     * @var TransactionBuilderInterface
+     */
+    private $transactionBuilder;
+
+    public function __construct(
+        TransactionBuilderInterface $transactionBuilder,
+        ClientInterface $httpClient,
+        HttpRequest $httpRequest
+    ) {
+        $this->transactionBuilder = $transactionBuilder;
+        parent::__construct($httpClient, $httpRequest);
+    }
+
     /**
      * @return Job
      */
@@ -134,5 +152,13 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         $wireCard = WireCard::createWithRequest($request);
 
         return $this->getSerializer()->serialize($wireCard, 'xml');
+    }
+
+    /**
+     * @return Transaction
+     */
+    protected function buildTransaction()
+    {
+        return $this->transactionBuilder->build();
     }
 }
