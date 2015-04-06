@@ -98,6 +98,15 @@ class Gateway extends AbstractGateway
      * @param array $parameters
      * @return RequestInterface
      */
+    public function purchase(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Wirecard\Message\PurchaseRequest', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     * @return RequestInterface
+     */
     public function reversal(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Wirecard\Message\ReversalRequest', $parameters);
