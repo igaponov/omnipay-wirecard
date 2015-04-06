@@ -15,7 +15,7 @@ class EnrollmentTransactionBuilder implements TransactionBuilderInterface
     /**
      * @var AbstractRequest
      */
-    private $request;
+    protected $request;
 
     /**
      * @param AbstractRequest $request
