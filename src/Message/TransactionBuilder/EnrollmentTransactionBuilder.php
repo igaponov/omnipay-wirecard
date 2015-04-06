@@ -10,7 +10,7 @@ use Wirecard\Element\CreditCardData;
 use Wirecard\Element\Transaction;
 use Wirecard\Element\TrustCenterData;
 
-class PurchaseTransactionBuilder implements TransactionBuilderInterface
+class EnrollmentTransactionBuilder implements TransactionBuilderInterface
 {
     /**
      * @var AbstractRequest
