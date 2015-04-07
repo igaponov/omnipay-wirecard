@@ -58,5 +58,7 @@ class EnrollmentTransactionBuilder implements TransactionBuilderInterface
         $transaction->countryCode = $this->request->getCountryCode();
         $transaction->creditCardData = $creditCardData;
         $transaction->trustCenterData = $trustCenter;
+
+        return $transaction;
     }
 }
