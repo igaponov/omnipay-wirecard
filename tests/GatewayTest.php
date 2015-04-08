@@ -2,6 +2,8 @@
 
 namespace Omnipay\Wirecard;
 
+use JMS\Serializer\SerializerBuilder;
+use Omnipay\Common\CreditCard;
 use Omnipay\Tests\GatewayTestCase;
 
 class GatewayTest extends GatewayTestCase
@@ -11,11 +13,42 @@ class GatewayTest extends GatewayTestCase
      */
     protected $gateway;
 
+    protected $paymentOptions;
+
     protected function setUp()
     {
         parent::setUp();
 
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway->setSerializer($this->getSerializerMock());
+        $this->paymentOptions = [
+            'card' => new CreditCard([
+                'number' => '4200000000000000',
+                'expiryYear' => '2019',
+                'expiryMonth' => '01',
+                'name' => 'John Doe',
+                'firstName' => 'John',
+                'lastName' => 'Doe',
+                'address1' => '550 South Winchester blvd.',
+                'address2' => 'P.O. Box 850',
+                'country' => 'US',
+                'phone' => '+1(202)555-1234',
+                'email' => 'John.Doe@email.com',
+            ]),
+            'amount' => '500.00',
+            'currency' => 'EUR',
+            'countryCode' => 'DE',
+            'transactionId' => '9457892347623478',
+        ];
+    }
+
+    protected function getSerializerMock()
+    {
+        $dir = __DIR__ . '/../vendor/igaponov/wirecard-php-api/src/Serializer/Metadata';
+
+        return SerializerBuilder::create()
+            ->addMetadataDir($dir, 'Wirecard\Element')
+            ->build();
     }
 
     public function testSupportsEnrollment()
@@ -41,5 +74,14 @@ class GatewayTest extends GatewayTestCase
     public function testSupportsBookBack()
     {
         $this->assertInstanceOf('Omnipay\Common\Message\RequestInterface', $this->gateway->bookBack());
+    }
+
+    public function testEnrollmentSuccess()
+    {
+        $this->setMockHttpResponse('EnrollmentSuccess.txt');
+        $response = $this->gateway->enrollment($this->paymentOptions)->send();
+        $this->assertTrue($response->isSuccessful());
+        $this->assertEquals('C242720181323966504820', $response->getTransactionReference());
+        $this->assertNull($response->getMessage());
     }
 }
