@@ -93,4 +93,22 @@ class GatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
         $this->assertSame('Cardholder not participating.', $response->getMessage());
     }
+
+    public function testPreauthorizationSuccess()
+    {
+        $this->setMockHttpResponse('PreauthorizationSuccess.txt');
+        $response = $this->gateway->preauthorization($this->paymentOptions)->send();
+        $this->assertTrue($response->isSuccessful());
+        $this->assertEquals('C898756138191214481743', $response->getTransactionReference());
+        $this->assertNull($response->getMessage());
+    }
+
+    public function testPreauthorizationFailure()
+    {
+        $this->setMockHttpResponse('PreauthorizationFailure.txt');
+        $response = $this->gateway->preauthorization($this->paymentOptions)->send();
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertSame('Authorization Declined.', $response->getMessage());
+    }
 }
