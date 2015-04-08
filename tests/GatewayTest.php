@@ -84,4 +84,13 @@ class GatewayTest extends GatewayTestCase
         $this->assertEquals('C242720181323966504820', $response->getTransactionReference());
         $this->assertNull($response->getMessage());
     }
+
+    public function testEnrollmentFailure()
+    {
+        $this->setMockHttpResponse('EnrollmentFailure.txt');
+        $response = $this->gateway->enrollment($this->paymentOptions)->send();
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertSame('Cardholder not participating.', $response->getMessage());
+    }
 }
