@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<WIRECARD_BXML xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance">
+<W_RESPONSE>
+<W_JOB>
+<JobID>ACCEPTANCE_TEST</JobID>
+<FNC_CC_CAPTURE>
+<FunctionID>function 1</FunctionID>
+<CC_TRANSACTION mode="demo">
+<TransactionID>8</TransactionID>
+<PROCESSING_STATUS>
+<GuWID>C305830112714411123351</GuWID>
+<StatusType>INFO</StatusType>
+<FunctionResult>PENDING</FunctionResult>
+<TimeStamp>2010-09-19 17:32:22</TimeStamp>
+</PROCESSING_STATUS>
+</CC_TRANSACTION>
+</FNC_CC_CAPTURE>
+</W_JOB>
+</W_RESPONSE>
+</WIRECARD_BXML>

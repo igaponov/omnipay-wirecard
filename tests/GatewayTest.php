@@ -15,6 +15,8 @@ class GatewayTest extends GatewayTestCase
 
     protected $paymentOptions;
 
+    protected $referencedOptions;
+
     protected function setUp()
     {
         parent::setUp();
@@ -39,6 +41,10 @@ class GatewayTest extends GatewayTestCase
             'currency' => 'EUR',
             'countryCode' => 'DE',
             'transactionId' => '9457892347623478',
+        ];
+        $this->referencedOptions = [
+            'transactionId' => '9457892347623478',
+            'transactionReference' => 'C242720181323966504820'
         ];
     }
 
@@ -110,5 +116,23 @@ class GatewayTest extends GatewayTestCase
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
         $this->assertSame('Authorization Declined.', $response->getMessage());
+    }
+
+    public function testCaptureSuccess()
+    {
+        $this->setMockHttpResponse('CaptureSuccess.txt');
+        $response = $this->gateway->capture($this->referencedOptions)->send();
+        $this->assertTrue($response->isSuccessful());
+        $this->assertEquals('C305830112714411123351', $response->getTransactionReference());
+        $this->assertNull($response->getMessage());
+    }
+
+    public function testCaptureFailure()
+    {
+        $this->setMockHttpResponse('CaptureFailure.txt');
+        $response = $this->gateway->capture($this->referencedOptions)->send();
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertSame('No action taken.', $response->getMessage());
     }
 }
