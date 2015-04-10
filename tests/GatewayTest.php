@@ -135,4 +135,22 @@ class GatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
         $this->assertSame('No action taken.', $response->getMessage());
     }
+
+    public function testPurchaseSuccess()
+    {
+        $this->setMockHttpResponse('PurchaseSuccess.txt');
+        $response = $this->gateway->purchase($this->paymentOptions)->send();
+        $this->assertTrue($response->isSuccessful());
+        $this->assertEquals('C242720181323966504820', $response->getTransactionReference());
+        $this->assertNull($response->getMessage());
+    }
+
+    public function testPurchaseFailure()
+    {
+        $this->setMockHttpResponse('PurchaseFailure.txt');
+        $response = $this->gateway->purchase($this->paymentOptions)->send();
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertSame('Authorization Declined.', $response->getMessage());
+    }
 }

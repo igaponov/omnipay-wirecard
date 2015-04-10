@@ -1,0 +1,29 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<WIRECARD_BXML xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance">
+<W_RESPONSE>
+<W_JOB>
+<JobID>job 1</JobID>
+<FNC_CC_PURCHASE>
+<FunctionID>function 1</FunctionID>
+<CC_TRANSACTION mode="demo">
+<TransactionID>9457892347623478</TransactionID>
+<PROCESSING_STATUS>
+<GuWID>C242720181323966504827</GuWID>
+<StatusType>INFO</StatusType>
+<FunctionResult>NOK</FunctionResult>
+<ERROR>
+<Type>REJECTED</Type>
+<Number>05</Number>
+<Message>Authorization Declined.</Message>
+<Advice>It is not possible to book the given amount from the credit account, e. g. limit is exceeded.</Advice>
+</ERROR>
+<TimeStamp>2001-01-31 20:39:24</TimeStamp>
+</PROCESSING_STATUS>
+</CC_TRANSACTION>
+</FNC_CC_PURCHASE>
+</W_JOB>
+</W_RESPONSE>
+</WIRECARD_BXML>
