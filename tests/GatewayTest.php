@@ -157,7 +157,7 @@ class GatewayTest extends GatewayTestCase
     public function testReversalSuccess()
     {
         $this->setMockHttpResponse('ReversalSuccess.txt');
-        $response = $this->gateway->reversal($this->paymentOptions)->send();
+        $response = $this->gateway->reversal($this->referencedOptions)->send();
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals('C242720181323966504820', $response->getTransactionReference());
         $this->assertNull($response->getMessage());
@@ -166,9 +166,27 @@ class GatewayTest extends GatewayTestCase
     public function testReversalFailure()
     {
         $this->setMockHttpResponse('ReversalFailure.txt');
-        $response = $this->gateway->reversal($this->paymentOptions)->send();
+        $response = $this->gateway->reversal($this->referencedOptions)->send();
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
         $this->assertSame('No action taken.', $response->getMessage());
+    }
+
+    public function testQuerySuccess()
+    {
+        $this->setMockHttpResponse('QuerySuccess.txt');
+        $response = $this->gateway->query($this->referencedOptions)->send();
+        $this->assertTrue($response->isSuccessful());
+        $this->assertEquals('C885511118700326859262', $response->getTransactionReference());
+        $this->assertNull($response->getMessage());
+    }
+
+    public function testQueryFailure()
+    {
+        $this->setMockHttpResponse('QueryFailure.txt');
+        $response = $this->gateway->query($this->referencedOptions)->send();
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertSame('Authorization Declined.', $response->getMessage());
     }
 }

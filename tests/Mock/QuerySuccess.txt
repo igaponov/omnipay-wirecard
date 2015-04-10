@@ -1,0 +1,24 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<WIRECARD_BXML xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance">
+<W_RESPONSE>
+<W_JOB>
+<JobID>ACCEPTANCE-TEST</JobID>
+<FNC_CC_QUERY>
+<FunctionID>ATOS-B AND S</FunctionID>
+<CC_TRANSACTION>
+<TransactionID>31</TransactionID>
+<PROCESSING_STATUS>
+<GuWID>C885511118700326859262</GuWID>
+<Info>THIS IS A TEST</Info>
+<StatusType>INFO</StatusType>
+<FunctionResult>PENDING</FunctionResult>
+<TimeStamp>2007-08-13 13:07:48</TimeStamp>
+</PROCESSING_STATUS>
+</CC_TRANSACTION>
+</FNC_CC_QUERY>
+</W_JOB>
+</W_RESPONSE>
+</WIRECARD_BXML>
