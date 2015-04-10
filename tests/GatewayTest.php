@@ -189,4 +189,22 @@ class GatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
         $this->assertSame('Authorization Declined.', $response->getMessage());
     }
+
+    public function testBookBackSuccess()
+    {
+        $this->setMockHttpResponse('BookBackSuccess.txt');
+        $response = $this->gateway->bookBack($this->referencedOptions)->send();
+        $this->assertTrue($response->isSuccessful());
+        $this->assertEquals('C242720181323966504820', $response->getTransactionReference());
+        $this->assertNull($response->getMessage());
+    }
+
+    public function testBookBackFailure()
+    {
+        $this->setMockHttpResponse('BookBackFailure.txt');
+        $response = $this->gateway->bookBack($this->referencedOptions)->send();
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isRedirect());
+        $this->assertSame('Expiration date invalid.', $response->getMessage());
+    }
 }
