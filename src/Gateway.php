@@ -73,7 +73,7 @@ class Gateway extends AbstractGateway
      */
     public function enrollment(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Wirecard\Message\EnrollmentRequest', $parameters);
+        return $this->createRequest('\Omnipay\Wirecard\Message\EnrollmentCheckRequest', $parameters);
     }
 
     /**

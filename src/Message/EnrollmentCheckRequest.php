@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Wirecard\Element\Action\EnrollmentCheck;
 use Wirecard\Element\Job;
 
-class EnrollmentRequest extends AbstractRequest
+class EnrollmentCheckRequest extends AbstractRequest
 {
     public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest)
     {
