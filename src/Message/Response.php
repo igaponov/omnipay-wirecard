@@ -19,6 +19,11 @@ class Response extends AbstractResponse
         return $this->getData()->getMessage();
     }
 
+    public function getCode()
+    {
+        return $this->getData()->getCode();
+    }
+
     public function getTransactionReference()
     {
         return $this->getData()->getProcessingGuWid();

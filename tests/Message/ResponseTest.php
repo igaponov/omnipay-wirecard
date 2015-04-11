@@ -41,6 +41,12 @@ class ResponseTest extends PHPUnit_Framework_TestCase
         $response->getMessage();
     }
 
+    public function testGetCodeCallsDataMethod()
+    {
+        $response = $this->getResponseMock('getCode');
+        $response->getCode();
+    }
+
     public function testGetTransactionReferenceCallsDataMethod()
     {
         $response = $this->getResponseMock('getProcessingGuWid');
