@@ -22,6 +22,9 @@
     "autoload": {
         "psr-4": { "Omnipay\\Wirecard\\" : "src/" }
     },
+    "autoload-dev": {
+        "psr-4": { "Omnipay\\Wirecard\\" : "tests/" }
+    },
     "require": {
         "omnipay/common": "~2.0",
         "igaponov/wirecard-php-api": "dev-master"
