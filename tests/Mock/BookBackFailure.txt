@@ -16,9 +16,6 @@ Content-Type: application/xml
 <FunctionResult>NOK</FunctionResult>
 <ERROR>
 <Type>DATA_ERROR</Type>
-Version: 4.4.0
-83Card Online Processing
-Merchant Specification
 <Number>20071</Number>
 <Message>Expiration date invalid.</Message>
 <Advice>Expiration date must not be exceeded.</Advice>
