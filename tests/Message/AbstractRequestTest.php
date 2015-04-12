@@ -110,10 +110,7 @@ class AbstractRequestTest extends TestCase
 
     public function testSendDataMethodCreatesAndSendsRequest()
     {
-        $httpResponse = $this->getMockBuilder('\Guzzle\Http\Message\Response')
-            ->setMethods(['getBody'])
-            ->disableOriginalConstructor()
-            ->getMock();
+        $httpResponse = $this->getMock('\Guzzle\Http\Message\Response', ['getBody'], [200]);
         $httpResponse->expects($this->once())->method('getBody')->with(true)->will($this->returnValue('resp_data'));
 
         $httpRequest = $this->getMock('\Guzzle\Http\Message\RequestInterface');
