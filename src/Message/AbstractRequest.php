@@ -45,6 +45,25 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     }
 
     /**
+     * @return TransactionBuilderInterface
+     */
+    public function getTransactionBuilder()
+    {
+        return $this->transactionBuilder;
+    }
+
+    /**
+     * @param TransactionBuilderInterface $transactionBuilder
+     * @return $this
+     */
+    public function setTransactionBuilder(TransactionBuilderInterface $transactionBuilder)
+    {
+        $this->transactionBuilder = $transactionBuilder;
+
+        return $this;
+    }
+
+    /**
      * @return SerializerInterface
      */
     public function getSerializer()
