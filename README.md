@@ -7,6 +7,7 @@ processing library for PHP 5.3+. This package implements Wirecard support for Om
 
 [![Build Status](https://travis-ci.org/igaponov/omnipay-wirecard.svg?branch=master)](https://travis-ci.org/igaponov/omnipay-wirecard)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/igaponov/omnipay-wirecard/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/igaponov/omnipay-wirecard/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/igaponov/omnipay-wirecard/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/igaponov/omnipay-wirecard/?branch=master)
 
 ## Installation
 
