@@ -1,0 +1,13 @@
+filter:
+    excluded_paths: ['build/*', 'tests/*', 'vendor/*']
+tools:
+    external_code_coverage: true
+    php_mess_detector:
+        filter:
+            excluded_paths: ['build/*', 'tests/*', 'vendor/*']
+    sensiolabs_security_checker: true
+    php_pdepend:
+        excluded_dirs: ['build/*', 'tests/*', 'vendor/*']
+    external_code_coverage:
+        timeout: '1200'
+    php_sim: true

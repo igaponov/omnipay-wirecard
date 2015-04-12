@@ -11,3 +11,7 @@ before_install:
 
 install:
     - composer --prefer-source install
+
+after_install:
+    - wget https://scrutinizer-ci.com/ocular.phar
+    - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
