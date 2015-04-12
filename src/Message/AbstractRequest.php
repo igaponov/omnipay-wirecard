@@ -61,7 +61,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('serializer', $serializer);
     }
 
-    protected function getEndpoint()
+    public function getEndpoint()
     {
         return $this->getTestMode() ?
             'https://c3-test.wirecard.com/secure/ssl-gateway' :
@@ -149,7 +149,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->createResponse($wireCard->response);
     }
 
-    public function createResponse($data)
+    protected function createResponse($data)
     {
         return $this->response = new Response($this, $data);
     }
