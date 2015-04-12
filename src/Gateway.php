@@ -2,6 +2,7 @@
 
 namespace Omnipay\Wirecard;
 
+use JMS\Serializer\SerializerInterface;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\RequestInterface;
 
@@ -62,7 +63,7 @@ class Gateway extends AbstractGateway
         return $this->getParameter('serializer');
     }
 
-    public function setSerializer($value)
+    public function setSerializer(SerializerInterface $value)
     {
         return $this->setParameter('serializer', $value);
     }
