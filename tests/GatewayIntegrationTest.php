@@ -63,7 +63,7 @@ class GatewayIntegrationTest extends GatewayTestCase
     public function testEnrollmentSuccess()
     {
         $this->setMockHttpResponse('EnrollmentSuccess.txt');
-        $response = $this->gateway->enrollment($this->paymentOptions)->send();
+        $response = $this->gateway->enrollmentCheck($this->paymentOptions)->send();
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals('C242720181323966504820', $response->getTransactionReference());
         $this->assertNull($response->getMessage());
@@ -72,7 +72,7 @@ class GatewayIntegrationTest extends GatewayTestCase
     public function testEnrollmentFailure()
     {
         $this->setMockHttpResponse('EnrollmentFailure.txt');
-        $response = $this->gateway->enrollment($this->paymentOptions)->send();
+        $response = $this->gateway->enrollmentCheck($this->paymentOptions)->send();
         $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
         $this->assertSame('Cardholder not participating.', $response->getMessage());

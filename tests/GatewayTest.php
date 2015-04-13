@@ -30,7 +30,7 @@ class GatewayTest extends GatewayTestCase
 
     public function testSupportsEnrollment()
     {
-        $this->assertInstanceOf('Omnipay\Common\Message\RequestInterface', $this->gateway->enrollment());
+        $this->assertInstanceOf('Omnipay\Common\Message\RequestInterface', $this->gateway->enrollmentCheck());
     }
 
     public function testSupportsPreauthorization()
