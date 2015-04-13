@@ -120,7 +120,7 @@ class AbstractRequestTest extends TestCase
         $method->invoke($request);
     }
 
-    public function testSendDataMethodCreatesAndSendsRequest()
+    public function testSendDataMethodCreatesAndSendsHttpRequest()
     {
         $httpResponse = $this->getMock('\Guzzle\Http\Message\Response', ['getBody'], [200]);
         $httpResponse->expects($this->once())->method('getBody')->with(true)->will($this->returnValue('resp_data'));
@@ -157,5 +157,26 @@ class AbstractRequestTest extends TestCase
         $response = $request->sendData('data');
         $this->assertSame($request, $response->getRequest());
         $this->assertSame('resp', $response->getData());
+    }
+
+    public function testGetDataMethodCreatesRequestData()
+    {
+        /** @var \PHPUnit_Framework_MockObject_MockObject|SerializerInterface $serializer */
+        $serializer = $this->getMock('\JMS\Serializer\SerializerInterface', ['serialize', 'deserialize']);
+        $serializer->expects($this->once())->method('serialize')
+            ->with($this->isInstanceOf('\Wirecard\Element\WireCard'))
+            ->will($this->returnValue('request_data'));
+
+        $job = $this->getMockBuilder('\Wirecard\Element\Job')->disableOriginalConstructor()->getMock();
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject|AbstractRequest $request */
+        $request = $this->getMockBuilder('\Omnipay\Wirecard\Message\AbstractRequest')
+            ->setMethods(['buildData'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $request->initialize(['serializer' => $serializer]);
+        $request->expects($this->once())->method('buildData')->will($this->returnValue($job));
+
+        $this->assertSame('request_data', $request->getData());
     }
 }
