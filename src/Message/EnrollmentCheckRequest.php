@@ -2,19 +2,11 @@
 
 namespace Omnipay\Wirecard\Message;
 
-use Guzzle\Http\ClientInterface;
-use Omnipay\Wirecard\Message\TransactionBuilder\EnrollmentTransactionBuilder;
-use Symfony\Component\HttpFoundation\Request as HttpRequest;
 use Wirecard\Element\Action\EnrollmentCheck;
 use Wirecard\Element\Job;
 
 class EnrollmentCheckRequest extends AbstractRequest
 {
-    public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest)
-    {
-        parent::__construct(new EnrollmentTransactionBuilder($this), $httpClient, $httpRequest);
-    }
-
     /**
      * @inheritdoc
      */

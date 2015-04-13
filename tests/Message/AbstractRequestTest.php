@@ -108,6 +108,18 @@ class AbstractRequestTest extends TestCase
         $this->assertSame('DE', $request->getCountryCode());
     }
 
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testBuildingWithoutBuilderThrowsException()
+    {
+        $request = $this->getRequestMock();
+        $class = new \ReflectionClass('\Omnipay\Wirecard\Message\AbstractRequest');
+        $method = $class->getMethod('buildTransaction');
+        $method->setAccessible(true);
+        $method->invoke($request);
+    }
+
     public function testSendDataMethodCreatesAndSendsRequest()
     {
         $httpResponse = $this->getMock('\Guzzle\Http\Message\Response', ['getBody'], [200]);
@@ -124,7 +136,6 @@ class AbstractRequestTest extends TestCase
             ->with('https://c3-test.wirecard.com/secure/ssl-gateway', ['Content-Type' => 'application/xml'], 'data')
             ->will($this->returnValue($httpRequest));
 
-        $builder = $this->getMock('\Omnipay\Wirecard\Message\TransactionBuilder\TransactionBuilderInterface');
         /** @var \PHPUnit_Framework_MockObject_MockObject|SerializerInterface $serializer */
         $serializer = $this->getMock('\JMS\Serializer\SerializerInterface', ['serialize', 'deserialize']);
         $serializer->expects($this->once())->method('deserialize')
@@ -135,7 +146,7 @@ class AbstractRequestTest extends TestCase
         $request = $this->getMock(
             '\Omnipay\Wirecard\Message\AbstractRequest',
             ['buildData'],
-            [$builder, $httpClient, $this->getMock('\Symfony\Component\HttpFoundation\Request')]
+            [$httpClient, $this->getMock('\Symfony\Component\HttpFoundation\Request')]
         );
         $request->setTestMode(true);
         $request->setContentType('application/xml');

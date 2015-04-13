@@ -2,11 +2,10 @@
 
 namespace Omnipay\Wirecard\Message;
 
-use Guzzle\Http\ClientInterface;
 use JMS\Serializer\SerializerInterface;
 use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\Wirecard\Message\TransactionBuilder\TransactionBuilderInterface;
-use Symfony\Component\HttpFoundation\Request as HttpRequest;
+use RuntimeException;
 use Wirecard\Element\Job;
 use Wirecard\Element\Request;
 use Wirecard\Element\Transaction;
@@ -18,15 +17,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      * @var TransactionBuilderInterface
      */
     private $transactionBuilder;
-
-    public function __construct(
-        TransactionBuilderInterface $transactionBuilder,
-        ClientInterface $httpClient,
-        HttpRequest $httpRequest
-    ) {
-        $this->transactionBuilder = $transactionBuilder;
-        parent::__construct($httpClient, $httpRequest);
-    }
 
     /**
      * @return Job
@@ -82,9 +72,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function getEndpoint()
     {
-        return $this->getTestMode() ?
-            'https://c3-test.wirecard.com/secure/ssl-gateway' :
-            'https://c3.wirecard.com/secure/ssl-gateway';
+        return sprintf('https://c3%s.wirecard.com/secure/ssl-gateway', $this->getTestMode() ? '-test' : '');
     }
 
     public function getUsername()
@@ -188,6 +176,10 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      */
     protected function buildTransaction()
     {
+        if (!$this->transactionBuilder) {
+            throw new RuntimeException('Transaction builder must be set');
+        }
+
         return $this->transactionBuilder->build();
     }
 }
