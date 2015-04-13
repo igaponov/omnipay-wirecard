@@ -2,6 +2,7 @@
 
 namespace Omnipay\Wirecard;
 
+use JMS\Serializer\SerializerInterface;
 use Omnipay\Tests\GatewayTestCase;
 
 class GatewayTest extends GatewayTestCase
@@ -16,6 +17,15 @@ class GatewayTest extends GatewayTestCase
         parent::setUp();
 
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
+    }
+
+    public function testSerializer()
+    {
+        $gateway = $this->gateway;
+        /** @var SerializerInterface $serializer */
+        $serializer = $this->getMock('\JMS\Serializer\SerializerInterface');
+        $this->assertSame($gateway, $gateway->setSerializer($serializer));
+        $this->assertSame($serializer, $gateway->getSerializer());
     }
 
     public function testSupportsEnrollment()
