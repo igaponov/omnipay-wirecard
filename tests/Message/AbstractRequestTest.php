@@ -108,6 +108,21 @@ class AbstractRequestTest extends TestCase
         $this->assertSame('DE', $request->getCountryCode());
     }
 
+    public function testBuildTransactionMethodCallsTransactionBuilder()
+    {
+        /** @var \PHPUnit_Framework_MockObject_MockObject|TransactionBuilderInterface $builder */
+        $builder = $this->getMock('Omnipay\Wirecard\Message\TransactionBuilder\TransactionBuilderInterface', ['build']);
+        $builder->expects($this->once())->method('build');
+
+        $request = $this->getRequestMock();
+        $request->setTransactionBuilder($builder);
+
+        $class = new \ReflectionClass('\Omnipay\Wirecard\Message\AbstractRequest');
+        $method = $class->getMethod('buildTransaction');
+        $method->setAccessible(true);
+        $method->invoke($request);
+    }
+
     /**
      * @expectedException \RuntimeException
      */
