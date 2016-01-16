@@ -27,7 +27,7 @@
     },
     "require": {
         "omnipay/common": "~2.0",
-        "igaponov/wirecard-php-api": "dev-master"
+        "igaponov/wirecard-php-api": "~0.1"
     },
     "require-dev": {
         "omnipay/tests": "~2.0"
