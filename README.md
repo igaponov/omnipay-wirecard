@@ -27,6 +27,18 @@ And run composer to update your dependencies:
     $ curl -s http://getcomposer.org/installer | php
     $ php composer.phar update
 
+Configure your serializer (for example, JMS serializer):
+
+```php
+use JMS\Serializer\SerializerBuilder;
+
+$serializer = SerializerBuilder::create()
+    ->addMetadataDir('path/to/src/Serializer/Metadata', 'Wirecard\Element')
+    ->build();
+$gateway = $factory->create('Wirecard');
+$gateway->setSerializer($serializer);
+```
+
 ## Basic Usage
 
 For general usage instructions, please see the main [Omnipay](https://github.com/omnipay/omnipay)
